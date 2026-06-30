@@ -1,12 +1,17 @@
 stages:
-  - test
+  - build
 
-run-on-mac:
-  stage: test
-  tags:
-    - mac-runner
+build-image:
+  stage: build
+
   script:
-    - echo "Hello from kunal boss !"
-    - uname -a
-    - pwd
-    - date
+    - docker version
+
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
+    - docker build \
+      -t $DOCKER_USERNAME/cloudshop-product-service:$CI_COMMIT_SHORT_SHA \
+      services/product-service
+
+    - docker push \
+      $DOCKER_USERNAME/cloudshop-product-service:$CI_COMMIT_SHORT_SHA
