@@ -12,6 +12,4 @@ build-image:
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
     - docker build -t $DOCKER_USERNAME/cloudshop-product-service:$CI_COMMIT_SHORT_SHA services/product-service
-
-    - docker push \
-      $DOCKER_USERNAME/cloudshop-product-service:$CI_COMMIT_SHORT_SHA
+    - docker push $DOCKER_USERNAME/cloudshop-product-service:$CI_COMMIT_SHORT_SHA
