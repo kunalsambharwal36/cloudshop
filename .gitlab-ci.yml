@@ -5,4 +5,3 @@ test-job:
   stage: test
   script:
     - echo "HELLO FROM SELF HOSTED RUNNER"
-    - hostname
