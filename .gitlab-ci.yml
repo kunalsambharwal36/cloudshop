@@ -1,19 +1,14 @@
 stages:
   - validate
-  - build
 
 validate-job:
   stage: validate
-  script:
-    - echo "CloudShop Validation Started"
-    - pwd
-    - ls -la
-    - echo "Validation Successful"
 
-build-product-service:
-  stage: build
+  tags:
+    - mac-runner
+
   script:
-    - echo "Checking Product Service Files"
-    - ls -la services/product-service
-    - test -f services/product-service/Dockerfile
-    - echo "Dockerfile Found"
+    - echo "Running on self-hosted runner"
+    - hostname
+    - whoami
+    - pwd
