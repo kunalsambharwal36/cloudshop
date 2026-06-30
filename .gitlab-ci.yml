@@ -3,8 +3,6 @@ stages:
 
 test-job:
   stage: test
-  tags:
-    - mac-runner
   script:
     - echo "HELLO FROM SELF HOSTED RUNNER"
     - hostname
