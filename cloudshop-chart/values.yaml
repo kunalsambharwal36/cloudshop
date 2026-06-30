@@ -3,7 +3,7 @@ productService:
 
   image:
     repository: kunalsambharwal36/cloudshop-product-service
-    tag: 4be1e217
+    tag: test123
     pullPolicy: Always
 
   containerPort: 8000
