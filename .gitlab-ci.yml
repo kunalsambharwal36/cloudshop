@@ -1,0 +1,11 @@
+stages:
+  - validate
+
+validate-job:
+  stage: validate
+
+  script:
+    - echo "CloudShop Pipeline Started"
+    - pwd
+    - ls -la
+    - echo "Pipeline Success"
