@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: product-service
+  namespace: monitoring
+  labels:
+    release: monitoring
+spec:
+  selector:
+    matchLabels:
+      app: product-service
+
+  namespaceSelector:
+    matchNames:
+    - cloudshop
+
+  endpoints:
+  - port: http
+    path: /metrics
+    interval: 15s

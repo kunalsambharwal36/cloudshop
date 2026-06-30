@@ -1,0 +1,14 @@
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaNodePool
+metadata:
+  name: cloudshop-pool
+  namespace: kafka
+  labels:
+    strimzi.io/cluster: cloudshop-kafka
+spec:
+  replicas: 3
+  roles:
+    - broker
+    - controller
+  storage:
+    type: ephemeral
