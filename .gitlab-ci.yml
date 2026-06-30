@@ -4,6 +4,8 @@ stages:
 build-image:
   stage: build
 
+  tags:
+    - mac-runner
   script:
     - docker version
 
