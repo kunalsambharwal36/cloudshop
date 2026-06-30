@@ -4,4 +4,4 @@ stages:
 test-job:
   stage: test
   script:
-    - echo "HELLO FROM SELF HOSTED RUNNER"
+    - echo "HELLO FROM SELF HOSTED RUNNR"
