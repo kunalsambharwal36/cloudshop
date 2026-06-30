@@ -1,14 +1,10 @@
 stages:
-  - validate
+  - test
 
-validate-job:
-  stage: validate
-
+test-job:
+  stage: test
   tags:
     - mac-runner
-
   script:
-    - echo "Running on self-hosted runner"
+    - echo "HELLO FROM SELF HOSTED RUNNER"
     - hostname
-    - whoami
-    - pwd
