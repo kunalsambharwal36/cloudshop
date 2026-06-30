@@ -1,7 +1,5 @@
-stages:
-  - test
-
 test-job:
-  stage: test
   script:
-    - echo "HELLO FROM SELF HOSTED RUNNR"
+    - echo "HELLO FROM SELF HOSTED RUNNER"
+    - hostname
+    - whoami
