@@ -6,7 +6,7 @@ run-on-mac:
   tags:
     - mac-runner
   script:
-    - echo "Hello from my Mac !"
+    - echo "Hello from kunal boss !"
     - uname -a
     - pwd
     - date
