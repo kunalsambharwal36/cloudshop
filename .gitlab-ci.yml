@@ -1,5 +1,5 @@
 test-job:
   script:
-    - echo "HELLO FROM SELF HOSTED RUNNER"
+    - echo "HELLO FROM SELF HOSTED RUNNER kunal"
     - hostname
     - whoami
