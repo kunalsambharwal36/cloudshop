@@ -1,0 +1,10 @@
+[init]
+	defaultBranch = none
+[fetch]
+	recurseSubmodules = false
+[credential]
+	interactive = never
+[gc]
+	autoDetach = false
+[include]
+	path = /Users/kunal/cloudshop/services/product-service/builds/Ak-d4rdrm/0/kunalsambharwal36/cloudshop.tmp/.gitlab-runner.ext.conf
