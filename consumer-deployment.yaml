@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-consumer
+  namespace: cloudshop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order-consumer
+  template:
+    metadata:
+      labels:
+        app: order-consumer
+    spec:
+      containers:
+      - name: order-consumer
+        image: order-consumer:v1
+        imagePullPolicy: Never
+        env:
+        - name: KAFKA_BOOTSTRAP
+          value: cloudshop-kafka-kafka-bootstrap.kafka.svc.cluster.local:9092
+        - name: DATABASE_URL
+          value: postgresql://postgres:admin123@postgres-postgresql.database.svc.cluster.local:5432/cloudshop

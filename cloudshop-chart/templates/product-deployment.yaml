@@ -4,22 +4,25 @@ metadata:
   name: product-service
   namespace: cloudshop
 spec:
-  replicas: {{ .Values.product.replicaCount }}
-
+  replicas: {{ .Values.productService.replicaCount }}
   selector:
     matchLabels:
       app: product-service
-
   template:
     metadata:
       labels:
         app: product-service
-
     spec:
       containers:
       - name: product-service
-        image: "{{ .Values.product.image }}"
-        imagePullPolicy: Never
-
+        image: "{{ .Values.productService.image.repository }}:{{ .Values.productService.image.tag }}"
+        imagePullPolicy: {{ .Values.productService.image.pullPolicy }}
         ports:
-        - containerPort: 8000
+        - containerPort: {{ .Values.productService.containerPort }}
+        resources:
+          requests:
+            cpu: {{ .Values.productService.resources.requests.cpu }}
+            memory: {{ .Values.productService.resources.requests.memory }}
+          limits:
+            cpu: {{ .Values.productService.resources.limits.cpu }}
+            memory: {{ .Values.productService.resources.limits.memory }}
