@@ -1,11 +1,19 @@
 stages:
   - validate
+  - build
 
 validate-job:
   stage: validate
-
   script:
-    - echo "CloudShop Pipeline Started"
+    - echo "CloudShop Validation Started"
     - pwd
     - ls -la
-    - echo "Pipeline Success"
+    - echo "Validation Successful"
+
+build-product-service:
+  stage: build
+  script:
+    - echo "Checking Product Service Files"
+    - ls -la services/product-service
+    - test -f services/product-service/Dockerfile
+    - echo "Dockerfile Found"
