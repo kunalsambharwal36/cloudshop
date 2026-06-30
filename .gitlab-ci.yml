@@ -1,15 +1,20 @@
 stages:
   - build
+  - deploy
 
 build-image:
   stage: build
-
   tags:
     - mac-runner
   script:
-    - docker version
-
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-
     - docker build -t $DOCKER_USERNAME/cloudshop-product-service:$CI_COMMIT_SHORT_SHA services/product-service
     - docker push $DOCKER_USERNAME/cloudshop-product-service:$CI_COMMIT_SHORT_SHA
+
+deploy:
+  stage: deploy
+  tags:
+    - mac-runner
+  script:
+    - kubectl set image deployment/product-service product-service=$DOCKER_USERNAME/cloudshop-product-service:$CI_COMMIT_SHORT_SHA -n cloudshop
+    - kubectl rollout status deployment/product-service -n cloudshop

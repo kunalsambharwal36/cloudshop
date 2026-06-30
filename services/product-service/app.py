@@ -14,7 +14,7 @@ engine = create_engine(DATABASE_URL)
 
 @app.get("/")
 def root():
-    return {"message": "Product Service Running"}
+    return {"message": "Product Service v2"}
 
 
 @app.get("/products")
