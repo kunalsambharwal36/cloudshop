@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: product-service
-  namespace: cloudshop
+  namespace: {{ .Values.namespace }}
 spec:
   replicas: {{ .Values.productService.replicaCount }}
   selector:
@@ -14,15 +14,38 @@ spec:
         app: product-service
     spec:
       containers:
-      - name: product-service
-        image: "{{ .Values.productService.image.repository }}:{{ .Values.productService.image.tag }}"
-        imagePullPolicy: {{ .Values.productService.image.pullPolicy }}
-        ports:
-        - containerPort: {{ .Values.productService.containerPort }}
-        resources:
-          requests:
-            cpu: {{ .Values.productService.resources.requests.cpu }}
-            memory: {{ .Values.productService.resources.requests.memory }}
-          limits:
-            cpu: {{ .Values.productService.resources.limits.cpu }}
-            memory: {{ .Values.productService.resources.limits.memory }}
+        - name: product-service
+          image: "{{ .Values.productService.image.repository }}:{{ .Values.productService.image.tag }}"
+          imagePullPolicy: {{ .Values.productService.image.pullPolicy }}
+          env:
+            - name: DATABASE_URL
+              value: "{{ .Values.database.url }}"
+          ports:
+            - containerPort: {{ .Values.productService.containerPort }}
+
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: {{ .Values.productService.containerPort }}
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: {{ .Values.productService.containerPort }}
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+
+          resources:
+            requests:
+              cpu: {{ .Values.productService.resources.requests.cpu }}
+              memory: {{ .Values.productService.resources.requests.memory }}
+
+            limits:
+              cpu: {{ .Values.productService.resources.limits.cpu }}
+              memory: {{ .Values.productService.resources.limits.memory }}

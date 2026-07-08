@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: order-consumer
+  namespace: {{ .Values.namespace }}
+
+spec:
+  replicas: {{ .Values.consumer.replicaCount }}
+
+  selector:
+    matchLabels:
+      app: order-consumer
+
+  template:
+    metadata:
+      labels:
+        app: order-consumer
+
+    spec:
+      containers:
+        - name: order-consumer
+          image: "{{ .Values.consumer.image.repository }}:{{ .Values.consumer.image.tag }}"
+          imagePullPolicy: {{ .Values.consumer.image.pullPolicy }}
+
+          env:
+            - name: KAFKA_BOOTSTRAP
+              value: "cloudshop-kafka-kafka-bootstrap.kafka.svc.cluster.local:9092"
+
+            - name: DATABASE_URL
+              value: "postgresql://postgres:admin123@postgres-postgresql.database.svc.cluster.local:5432/cloudshop"
+
+          resources:
+            requests:
+              cpu: {{ .Values.consumer.resources.requests.cpu }}
+              memory: {{ .Values.consumer.resources.requests.memory }}
+
+            limits:
+              cpu: {{ .Values.consumer.resources.limits.cpu }}
+              memory: {{ .Values.consumer.resources.limits.memory }}

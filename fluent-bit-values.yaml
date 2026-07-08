@@ -1,0 +1,26 @@
+config:
+  outputs: |
+    [OUTPUT]
+        Name es
+        Match kube.*
+        Host elasticsearch-master.logging.svc.cluster.local
+        Port 9200
+        TLS On
+        TLS.Verify Off
+        HTTP_User elastic
+        HTTP_Passwd HoY3NFOPsC34juul
+        Logstash_Format On
+        Retry_Limit False
+
+    [OUTPUT]
+        Name es
+        Match host.*
+        Host elasticsearch-master.logging.svc.cluster.local
+        Port 9200
+        TLS On
+        TLS.Verify Off
+        HTTP_User elastic
+        HTTP_Passwd HoY3NFOPsC34juul
+        Logstash_Format On
+        Logstash_Prefix node
+        Retry_Limit False

@@ -1,11 +1,9 @@
-namespace: cloudshop
-
 productService:
   replicaCount: 1
 
   image:
     repository: kunalsambharwal36/cloudshop-product-service
-    tag: v4
+    tag: test123
     pullPolicy: Always
 
   containerPort: 8000
@@ -32,40 +30,22 @@ orderService:
   replicaCount: 1
 
   image:
-    repository: kunalsambharwal36/cloudshop-order-service
-    tag: v7
-    pullPolicy: Always
+    repository: order-service
+    tag: v2
+    pullPolicy: Never
 
   service:
     type: ClusterIP
     port: 80
     targetPort: 8000
-  
-  resources:
-    requests:
-      cpu: 100m
-      memory: 128Mi
-
-    limits:
-      cpu: 500m
-      memory: 512Mi
 
 consumer:
   replicaCount: 1
 
   image:
-    repository: kunalsambharwal36/cloudshop-order-consumer
-    tag: v3
-    pullPolicy: Always
-    
-  resources:
-    requests:
-      cpu: 100m
-      memory: 128Mi
-
-    limits:
-      cpu: 500m
-      memory: 512Mi
+    repository: order-consumer
+    tag: v1
+    pullPolicy: Never
 
 kafka:
   bootstrap: cloudshop-kafka-kafka-bootstrap.kafka.svc.cluster.local:9092

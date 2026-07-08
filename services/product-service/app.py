@@ -12,6 +12,28 @@ DATABASE_URL = os.getenv(
 
 engine = create_engine(DATABASE_URL)
 
+@app.get("/health")
+def health():
+    try:
+        with engine.connect() as conn:
+            conn.execute(text("SELECT 1"))
+
+        return {
+            "status": "UP",
+            "service": "product-service",
+            "database": "UP"
+        }
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=503,
+            detail={
+                "status": "DOWN",
+                "service": "product-service",
+                "database": "DOWN",
+                "error": str(e)
+            }
+        )
 @app.get("/")
 def root():
     return {"message": "Product Service v2"}

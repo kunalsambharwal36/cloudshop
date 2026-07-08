@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from kafka import KafkaProducer
 from pydantic import BaseModel
 import json
@@ -16,14 +16,43 @@ producer = KafkaProducer(
     value_serializer=lambda v: json.dumps(v).encode("utf-8")
 )
 
+
+@app.get("/health")
+def health():
+    try:
+        producer.partitions_for("orders")
+
+        return {
+            "status": "UP",
+            "service": "order-service",
+            "kafka": "UP"
+        }
+
+    except Exception as e:
+        print(f"Kafka Error: {e}")
+
+        raise HTTPException(
+            status_code=503,
+            detail={
+                "status": "DOWN",
+                "service": "order-service",
+                "error": str(e)
+            }
+        )
+
+
 class Order(BaseModel):
     orderId: int
     product: str
     qty: int
 
+
 @app.get("/")
 def root():
-    return {"message": "Order Service Running"}
+    return {
+        "message": "Order Service Running"
+    }
+
 
 @app.post("/orders")
 def create_order(order: Order):

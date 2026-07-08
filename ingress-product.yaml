@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: product-ingress
+  namespace: cloudshop
+spec:
+  ingressClassName: nginx
+
+  tls:
+  - hosts:
+    - product.cloudshop.local
+    secretName: product-tls-secret
+  rules:
+  - host: product.cloudshop.local
+
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+
+        backend:
+          service:
+            name: product-service
+            port:
+              number: 80

@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: product-tls
+  namespace: cloudshop
+spec:
+  secretName: product-tls-secret
+
+  issuerRef:
+    name: selfsigned-cluster-issuer
+    kind: ClusterIssuer
+
+  dnsNames:
+  - product.cloudshop.local
