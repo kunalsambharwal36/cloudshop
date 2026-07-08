@@ -5,7 +5,7 @@ productService:
 
   image:
     repository: kunalsambharwal36/cloudshop-product-service
-    tag: v4
+    tag: v5
     pullPolicy: Always
 
   containerPort: 8000
@@ -33,7 +33,7 @@ orderService:
 
   image:
     repository: kunalsambharwal36/cloudshop-order-service
-    tag: v7
+    tag: v5
     pullPolicy: Always
 
   service:
@@ -55,7 +55,7 @@ consumer:
 
   image:
     repository: kunalsambharwal36/cloudshop-order-consumer
-    tag: v3
+    tag: v5
     pullPolicy: Always
     
   resources:
